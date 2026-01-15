@@ -27,13 +27,12 @@ body {
 .preview {
   width: 100%;
   aspect-ratio: 3/4;
-  background: #000;
+  background: url("https://i.imgur.com/yS8XQKL.jpeg") center/cover;
   border-radius: 15px;
   position: relative;
   overflow: hidden;
 }
 
-/* ẢNH AVATAR */
 .preview img {
   position: absolute;
   top: 8%;
@@ -43,7 +42,7 @@ body {
   height: 56%;
   object-fit: cover;
   border-radius: 10px;
-  display: block;
+  display: none;
 }
 
 .text {
@@ -52,7 +51,6 @@ body {
   left: 10%;
   right: 10%;
   font-weight: bold;
-  text-align: center;
 }
 
 .text div {
@@ -95,9 +93,7 @@ input[type="file"] {
 
 <div class="card">
   <div class="preview">
-    <!-- ẢNH CỦA BẠN -->
-    <img id="avatar" src="avatar.jpg">
-
+    <img id="avatar">
     <div class="text">
       <div id="nameText">NAME</div>
       <div id="magText">MAGNITUDE</div>
@@ -111,7 +107,7 @@ input[type="file"] {
     <label for="fileInput">UPLOAD PFP</label>
     <input type="file" id="fileInput" accept="image/*">
 
-    <button type="button">OK</button>
+    <button>OK</button>
   </div>
 </div>
 
@@ -126,21 +122,16 @@ const magText = document.getElementById("magText");
 fileInput.onchange = () => {
   const file = fileInput.files[0];
   if (!file) return;
-
   const reader = new FileReader();
   reader.onload = () => {
     avatar.src = reader.result;
+    avatar.style.display = "block";
   };
   reader.readAsDataURL(file);
 };
 
-nameInput.oninput = () => {
-  nameText.textContent = nameInput.value || "NAME";
-};
-
-magInput.oninput = () => {
-  magText.textContent = magInput.value || "MAGNITUDE";
-};
+nameInput.oninput = () => nameText.textContent = nameInput.value;
+magInput.oninput = () => magText.textContent = magInput.value;
 </script>
 
 </body>
