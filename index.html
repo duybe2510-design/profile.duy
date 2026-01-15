@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seismic Card</title>
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg,#8B5CF6,#553C9A);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  width: 320px;
+  background: #111;
+  border-radius: 20px;
+  padding: 15px;
+  color: white;
+}
+
+.preview {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: url("https://i.imgur.com/yS8XQKL.jpeg") center/cover;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.preview img {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 56%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: none;
+}
+
+.text {
+  position: absolute;
+  bottom: 18%;
+  left: 10%;
+  right: 10%;
+  font-weight: bold;
+}
+
+.text div {
+  margin-bottom: 6px;
+}
+
+.controls {
+  margin-top: 15px;
+}
+
+input, button, label {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+}
+
+label {
+  background: #EC4899;
+  text-align: center;
+  cursor: pointer;
+}
+
+button {
+  background: #10B981;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="preview">
+    <img id="avatar">
+    <div class="text">
+      <div id="nameText">NAME</div>
+      <div id="magText">MAGNITUDE</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input id="nameInput" placeholder="Nhập tên">
+    <input id="magInput" placeholder="Magnitude">
+    
+    <label for="fileInput">UPLOAD PFP</label>
+    <input type="file" id="fileInput" accept="image/*">
+
+    <button>OK</button>
+  </div>
+</div>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const avatar = document.getElementById("avatar");
+const nameInput = document.getElementById("nameInput");
+const magInput = document.getElementById("magInput");
+const nameText = document.getElementById("nameText");
+const magText = document.getElementById("magText");
+
+fileInput.onchange = () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    avatar.src = reader.result;
+    avatar.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+};
+
+nameInput.oninput = () => nameText.textContent = nameInput.value;
+magInput.oninput = () => magText.textContent = magInput.value;
+</script>
+
+</body>
+</html>
